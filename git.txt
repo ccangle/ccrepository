@@ -7,6 +7,7 @@ git diff git.txt 查看文件的变化点
 git git reflog 命令查看你的每一次提交命令
 git reset --hard HEAD^ 版本回退
 git diff HEAD -- git.txt 查看工作区的文件和版本库中最新版本的区别
+git checkout -- git.txt 撤销修改
 
 修改和提交文件三步走：
 1.git add git.txt
@@ -16,7 +17,7 @@ git diff HEAD -- git.txt 查看工作区的文件和版本库中最新版本的�
 版本回退
 git reset --hard HEAD^
 
-版本回退到老版本怎么办？
+版本回退如何撤销？
 Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候，Git仅仅是把HEAD从指向了旧版本。
 如果知道退回前的版本号，然后使用"git reset --hard 版本号"这个命令就能回去，但是怎样才能
 知道退回前的版本号呢，可以使用"git git reflog"命令查看你的每一次提交命令，提交命令中就有
@@ -32,6 +33,13 @@ Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候�
 	当向git库中添加文件时，首先使用git add命令将文件添加到暂存区中，然后使用git commit命
 	令将暂存区中的内容添加到当前分支
 	
+撤销修改
+	对于工作区的修改（没有执行git add命令），撤销，使用git checkout -- git.txt就行
+	对于暂存区的求改（已经执行git add命令），撤销，使用git reset HEAD git.txt,这样就撤销了
+暂存区的修改，这一步完成之后还要进行工作区修改的撤销。
+	
+	
+git库管理的不是文件而是修改，每执行一次git add命令,git 就会记录修改，git commit的时候就会提交修改
 	
 
 
