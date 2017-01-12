@@ -66,8 +66,14 @@ git clone git@github.com:ccangle/ccrepository.git 这个命令只能是在初次
 	创建分支 git checkout -b dev 命令加上-b参数表示创建并切换
 	查看当前分支 git branch
 	切换分支 git checkout 目标分支名
+	合并指定分支到当前分支 git merge branch-name
+	删除分支 git branch -d branch-name
 	
-		
+	当创建的不同分支的内容出现冲突时，合并分支会出错，这时候要手动消除冲突后才能合并分支。
+	查看分支合并图 git log --graph
+	
+	因为创建、合并和删除分支非常快，所以Git鼓励你使用分支完成某个任务，合并后再删掉分支，这和直接在master分支上工作效果是一样的，但过程更安全
+	
 	
 
 
