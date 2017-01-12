@@ -1,10 +1,14 @@
-﻿pwd 显示当前目录
+﻿用户设置
+git config --global user.name "Your Name"
+git config --global user.email "email@example.com"
+
+pwd 显示当前目录
 git init 将当前目录编程git仓库
 git add readme.txt 将文件添加到仓库
 git commit -m "" 将文件提交到仓库， -m 后名的字符串代表备注信息
 git status 时刻掌握仓库当前的状态
 git diff git.txt 查看文件的变化点
-git git reflog 命令查看你的每一次提交命令
+git reflog 命令查看你的每一次提交命令
 git reset --hard HEAD^ 版本回退
 git diff HEAD -- git.txt 查看工作区的文件和版本库中最新版本的区别
 git checkout -- git.txt git checkout其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”
@@ -20,7 +24,7 @@ git reset --hard HEAD^
 版本回退如何撤销？
 Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候，Git仅仅是把HEAD从指向了旧版本。
 如果知道退回前的版本号，然后使用"git reset --hard 版本号"这个命令就能回去，但是怎样才能
-知道退回前的版本号呢，可以使用"git git reflog"命令查看你的每一次提交命令，提交命令中就有
+知道退回前的版本号呢，可以使用"git reflog"命令查看你的每一次提交命令，提交命令中就有
 相应版本的版本号。
 
 工作区:就是文件仓库所在目录
@@ -40,6 +44,29 @@ Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候�
 	
 	
 git库管理的不是文件而是修改，每执行一次git add命令,git 就会记录修改，git commit的时候就会提交修改
+
+
+远程仓库
+本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，所以需要设置SSHKEY
+$ ssh-keygen -t rsa -C "youremail@example.com"
+
+添加远程仓库
+git remote add angle git@github.com:ccangle/ccrepository.git 关联远程库
+git push -u angle master 将本地库内容推送到远程库
+
+推送本地最新修改到远程
+git push angle master 把本地的master分支的最新修改推送到github
+
+将远程库克隆到本地
+git clone git@github.com:ccangle/ccrepository.git 这个命令只能是在初次将远程库克隆到本地时使用
+
+
+分支管理
+
+	创建分支 git checkout -b dev 命令加上-b参数表示创建并切换
+	查看当前分支 git branch
+	
+		
 	
 
 
