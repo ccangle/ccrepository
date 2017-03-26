@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Appium test page-wait element disappeared and wait element appeared</title>
+    </head>
+    <style type="text/css">
+        #showElementState
+        {
+            width:200px;
+            height:70px;
+            background-color: grey;
+        }
+        
+        #targetElement
+        {
+            width:100px;
+            height:100px;
+            background-color: green;
+            position:relative;
+            float:left;
+            display:block;
+        }
+
+        #buttonAreal
+        {
+            width:100px;
+            height:30px;
+            position:relative;
+            float:left;
+        }
+
+        #elementState
+        {
+            float:right;
+			color:red;
+			font-size:30px;
+        }
+		
+	#leftTime
+	{
+		color:purple;
+		font-size:50px;
+		line-height:10px;
+	}
+    </style>
+    <script src="jquery-3.1.1.js"  type="text/javascript" ></script>
+    <script>
+		var timeConstant = 5;
+	
+        function buttonClick()
+        {
+            var state = $("#targetElement").css("display");
+			TimeCount();
+            if(state == "none") {
+                setTimeout(function(){
+                    $("#targetElement").show();
+                    $("#elementState").html("appeared");
+                }, timeConstant*1000);
+            } else {
+                setTimeout(function(){
+                    $("#targetElement").hide();
+                    $("#elementState").html("disappeared");
+                }, timeConstant*1000);
+            }
+			
+			setTimeout(function(){
+                    $("#leftTime").html(timeConstant);
+            }, timeConstant*1000 + 500);
+        }
+    
+		function TimeCount()
+		{
+			var totalTime = timeConstant;
+			setInterval(function(){
+				if(totalTime-- > 0)
+				{
+					$("#leftTime").html(totalTime);
+				}
+			}, 1000);
+		}
+    </script>
+
+    <body>
+        <h1>Appium test page</h1>
+        <div id="showElementState">
+            <div id="text1">要素の状態:</div>
+            <div id="elementState"></div>
+        </div><br><br>
+		<lable>テストの時，要素の状態によると、以下の入力框で不同な内容を設定する</lable>
+        <div id="experience">
+            <input type="text" id="elementStateController">
+        </div><br><br>
+		<lable>以下のボタンを押すと、要素の状態は<font id="leftTime">5</font>秒後変更する</lable><br>
+        <div id="buttonAreal">
+            <input type="button" id="elementStateController" value="change" onclick="buttonClick()">
+        </div><br>
+        <div id="targetElement"></div>
+    </body>
+</html>
