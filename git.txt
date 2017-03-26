@@ -19,7 +19,7 @@ git checkout -- git.txt git checkout其实是用版本库里的版本替换工�
 4.git commit -m ""
 
 版本回退
-git reset --hard HEAD^
+git reset --hard HEAD^ 往上回退2个版本就执行“git reset --hard HEAD^^”，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100
 
 版本回退如何撤销？
 Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候，Git仅仅是把HEAD从指向了旧版本。
@@ -39,7 +39,7 @@ Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候�
 	
 撤销修改
 	对于工作区的修改（没有执行git add命令），撤销，使用git checkout -- git.txt就行
-	对于暂存区的求改（已经执行git add命令），撤销，使用git reset HEAD git.txt,这样就撤销了
+	对于暂存区的修改（已经执行git add命令），撤销，使用git reset HEAD git.txt,这样就撤销了
 暂存区的修改，这一步完成之后还要进行工作区修改的撤销。
 	
 	
@@ -52,10 +52,11 @@ $ ssh-keygen -t rsa -C "youremail@example.com"
 
 添加远程仓库
 git remote add angle git@github.com:ccangle/ccrepository.git 关联远程库
-git push -u angle master 将本地库内容推送到远程库
+git push -u angle master 第一次将本地库内容推送到远程库
+此后，每次本地提交后，只要有必要，就可以使用命令git push angle master推送最新修改
 
 推送本地最新修改到远程
-git push angle master 把本地的master分支的最新修改推送到github
+git push angle master 把本地的master分支的最新修改推送到github（angle是自己起的远程库的别名）
 
 将远程库克隆到本地
 git clone git@github.com:ccangle/ccrepository.git 这个命令只能是在初次将远程库克隆到本地时使用
@@ -63,7 +64,7 @@ git clone git@github.com:ccangle/ccrepository.git 这个命令只能是在初次
 
 分支管理
 
-	创建分支 git checkout -b dev 命令加上-b参数表示创建并切换
+	创建分支 git checkout -b dev 命令加上-b参数表示创建并切换,单纯创建分支使用git branch branch-name
 	查看当前分支 git branch
 	切换分支 git checkout 目标分支名
 	合并指定分支到当前分支 git merge branch-name
@@ -74,7 +75,33 @@ git clone git@github.com:ccangle/ccrepository.git 这个命令只能是在初次
 	
 	因为创建、合并和删除分支非常快，所以Git鼓励你使用分支完成某个任务，合并后再删掉分支，这和直接在master分支上工作效果是一样的，但过程更安全
 	
+	合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息
+	如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息
+	git merge --no-ff -m "merge with no-ff" dev,再执行merge命令时，需要加上 --no-ff参数，这样就禁用了Fast forward的
+     合并模式，从而就可以再分支被删除之后还能从分支历史上看出分支信息。
+
+
+git的stash功能
 	
+        git stash命令
+	git stash命令会将当前暂存区的内容暂存到其他地方并清空暂存区，以便创建分支进行其他工作，比如修复bug之类的工作。
+	恢复git stash命令执行前的工作现场
+	    方法1：git stash apply，恢复工作区，然后执行git stash drop命令删除stash内容
+	    方法2：git stash pop恢复工作区，并删除stash内容
+	git stash list查看stash列表
+	
+
+git多人协作
+        要查看远程库的信息，用git remote [-v]
+	推送分支:git push angle(远程库名称，可以使用git remote命令查看） master
+            推送分支，就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git就会把该分支推送到远
+        程库对应的远程分支上
+	
+	git pull angle master将远程库angle的master分支抓取到本地
+
+配置git
+	让Git显示颜色，会让命令输出看起来更醒目：git config --global color.ui true
+        配置命令的别名：git config --global alias.st status
 
 我是一个非常自信的人
 
