@@ -3,7 +3,7 @@ git config --global user.name "Your Name"
 git config --global user.email "email@example.com"
 
 pwd 显示当前目录
-git init 将当前目录编程git仓库
+git init 将当前目录初始化为git仓库
 git add readme.txt 将文件添加到仓库
 git commit -m "" 将文件提交到仓库， -m 后名的字符串代表备注信息
 git status 时刻掌握仓库当前的状态
